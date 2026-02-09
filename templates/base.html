@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Spotify Analyzer{% endblock %}</title>
+    <link rel="icon" href="/static/img/logo_spotify.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+
+<header>
+ 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('home') }}">Spotify_Analyzer</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">Canciones mas escuchadas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">Artistas mas escuchados</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">Proximo</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">Perfil</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main>
+  {% block content %}
+  {% endblock %}
+</main>
+
+{% block footer %}
+<footer class="text-muted py-5">
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#">Volver arriba</a>
+    </p>
+    <p class="mb-1">¿Te encanto la página y quieres apoyarme? (Haré de cuenta que dijsite que si)</p>
+    <p class="mb-0"> Entonces podrías <a href="/https://www.google.com/search?pglt=931&q=gatos&cvid=659dd7acecc14ca9b81311ca254d779d&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQRRg9MgYIAhBFGD3SAQgxMDk0ajBqMagCALACAA&FORM=ANNTA1&PC=U531", target="_blank">regalarme una gaseosa</a></p>
+  </div>
+</footer>
+{% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

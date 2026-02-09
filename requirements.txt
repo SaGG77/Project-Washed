@@ -1,0 +1,8 @@
+Flask
+spotipy
+python-dotenv
+flask_wtf
+flask_sqlalchemy
+Werkzeug
+email_validator
+flask_migrate
