@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Perfil | Project Washed{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
+<div class="username-banner text-center mb-5">
+  <h1 class="display-4 fw-bold mb-1">
+    {{ user.nombre }}
+  </h1>
+  <p class="lead">Bienvenido a tu panel de usuario</p>
+</div>
+
+{% endblock %}

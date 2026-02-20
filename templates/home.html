@@ -1,17 +1,64 @@
 {% extends 'base.html' %}
-{% block title %}Inicio | Spotify Analyzer{% endblock %}
+{% block title %}Inicio | Project Washed{% endblock %}
 
   {% block content %}
   
 <section class="py-2 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Spotify Analyzer</h1>
-        <p class="lead text-muted">¿Quieres saber cuales son tus canciones o artistas mas escuchados? (Entre otras cosas mas) Pues esta es la página que estabas buscando</p>
+        <h1 class="fw-light">Project Washed</h1>
+        <p class="lead text-muted">Registrate para poder usar todas las funciones de la página</p>
         <p>
-          <a href="{{ url_for('login') }}" class="btn btn-primary my-2">Inicia sesión</a>
-          <a href="{{ url_for('register') }}" class="btn btn-secondary my-2">Registrate</a>
+          {% if session.get('user_id') %} 
+          <p class="text">¡Has iniciado sesión! puedes usar la página con tranquilidad</p>
+          {% else %}
+          <a href="{{ url_for('auth.login') }}" class="btn btn-primary my-2">Inicia sesión</a>
+          <a href="{{ url_for('auth.register') }}" class="btn btn-secondary my-2">Registrate</a>
+          {% endif %}
         </p>
       </div>
     </div>
+</section>
+
+
+
+
+<div class="container my-3">
+  <div class="row justify-content-center g-4">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Dashboard de hábitos/tiempo</h5>
+          <p class="card-text">Guardas sesiones: “estudio”, “juego”, “trabajo”, “scroll”. <br>
+             Estadísticas por semana, rachas, gráficos simples, exportar CSV.</p>
+          <a href="#" class="btn btn-primary">Ir a algún lugar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Gestor de biblioteca/media</h5>
+          <p class="card-text">Listas: “viendo”, “pendiente”, “completado”, rating, tags. <br>
+            Diferentes filtros y posibilidades.</p>
+          <a href="#" class="btn btn-primary">Ir a algún lugar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Analizador de gastos/finanzas personales</h5>
+          <p class="card-text">Ingresas gastos por categoría, fecha, método, notas. <br>
+            Reportes: top categorías, promedio semanal, “dónde se te va la plata”.</p>
+          <a href="#" class="btn btn-primary">Ir a algún lugar</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 {% endblock %}

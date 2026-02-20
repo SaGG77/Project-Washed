@@ -1,16 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}Registro | Spotify Analyzer{% endblock %}
+{% block title %}Login | Project Washed{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center mt-5">
-  <div class="col-md-6 registro-container">
-    <h2>Registro de Usuario</h2>
+  <div class="col-md-6 login-container">
+    <h2>Inicio de Sesión</h2>
     <form method="POST">
       {{ form.hidden_tag() }}
-      <div class="mb-3">
-        {{ form.nombre.label(class="form-label") }}
-        {{ form.nombre(class="form-control") }}
-      </div>
       <div class="mb-3">
         {{ form.email.label(class="form-label") }}
         {{ form.email(class="form-control") }}
@@ -18,10 +14,6 @@
       <div class="mb-3">
         {{ form.contraseña.label(class="form-label") }}
         {{ form.contraseña(class="form-control") }}
-      </div>
-      <div class="mb-3">
-        {{ form.repetir_contraseña.label(class="form-label") }}
-        {{ form.repetir_contraseña(class="form-control") }}
       </div>
       {{ form.submit(class="btn btn-primary") }}
     </form>

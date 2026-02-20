@@ -11,3 +11,4 @@ __pycache__/
 
 # Base de datos local (si usas sqlite)
 *.db
+/migrations
