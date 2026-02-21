@@ -1,21 +1,16 @@
-{% extends "base.html" %}
-{% block title %} Nuevo registro | Project Washed{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %} Nuevo registro | Project Washed{% endblock %} {% block content %}
 <div class="container my-4" style="max-width: 720px;">
     <h2 class="mb-3">Nuevo Registro</h2>
 
     <form method="POST">
         <div class="mb-3">
             <label class="form-label">Títulillo</label>
-            <input class="form-control" name="title" required
-            value="{{ form_data.get('title','') if form_data else '' }}">
+            <input class="form-control" name="title" required value="{{ form_data.get('title','') if form_data else '' }}">
         </div>
 
         <div class="mb-3">
             <label class="form-label">Tipo</label>
-            <select class="form-select" name="media_type" required
-                value="{{ form_data.get('media_type','') if form_data else '' }}">
+            <select class="form-select" name="media_type" required value="{{ form_data.get('media_type','') if form_data else '' }}">
                 <option value="">Selecciona</option>
                 <option value="movie">Pelicula</option>
                 <option value="series">Serie</option>
@@ -27,26 +22,22 @@
 
         <div class="mb-3">
             <label class="form-label">Tags (opcional)</label>
-            <input class="form-control" name="tags" maxlength="40" placeholder="Ej: acción, clásico, favorito"
-            value="{{ form_data.get('tags','') if form_data else '' }}">
+            <input class="form-control" name="tags" maxlength="40" placeholder="Ej: acción, clásico, favorito" value="{{ form_data.get('tags','') if form_data else '' }}">
         </div>
 
         <div class="mb-3">
             <label action="form-label">Calificación (0.0 a 10.0)</label>
-            <input class="form-control" type="number" name="rating" min="0" max="10" step="0.1" placeholder="Ej: 8.5" required
-            value="{{ form_data.get('rating','') if form_data else '' }}">
+            <input class="form-control" type="number" name="rating" min="0" max="10" step="0.1" placeholder="Ej: 8.5" required value="{{ form_data.get('rating','') if form_data else '' }}">
         </div>
 
         <div class="mb-3">
             <label class="form-label">Notas <span class="text-muted">(opcional)</span></label>
-            <textarea class="form-control" name="notes" rows="3"
-            value="{{ form_data.get('notes','') if form_data else '' }}"></textarea>
+            <textarea class="form-control" name="notes" rows="3" value="{{ form_data.get('notes','') if form_data else '' }}"></textarea>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Estado</label>
-            <select class="form-select" name="status" required
-                value="{{ form_data.get('status','') if form_data else '' }}">
+            <select class="form-select" name="status" required value="{{ form_data.get('status','') if form_data else '' }}">
                 <option value="">Selecciona…</option>
                 <option value="planned">Planeado</option>
                 <option value="in_progress">En proceso</option>
@@ -58,13 +49,12 @@
         <div class="row g-3 mb-3">
             <div class="col-md-6">
                 <label class="form-label">Fecha de inicio (opcional)</label>
-                <input class="form-control" type="date" name="start_date"
-                    value="{{ form_data.get('date','') if form_data else '' }}">
+                <input class="form-control" type="date" name="start_date" value="{{ form_data.get('date','') if form_data else '' }}">
             </div>
             <div class="col-md-6">
                 <label class="form-label">Fecha fin (opcional)</label>
-                <input class="form-control" name="end_date" type="date"
-                    value="{{ form_data.get('end_date','') if form_data else '' }}">
+                <input class="form-control" name="end_date" type="date" value="{{ form_data.get('end_date','') if form_data else '' }}">
+                <!--tengo que poner aqui tambien-->
             </div>
         </div>
 

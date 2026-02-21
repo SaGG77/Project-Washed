@@ -92,3 +92,16 @@ def delete(item_id):
 
     flash("Registro eliminado", "success")
     return redirect(url_for("media.index"))
+
+@media_bp.route("/<int:item_id>/edit", methods=["GET, POST"])
+@login_required
+def edit(item_id):
+    user_id = session["user_id"]
+
+    item = MediaItem.query.filter_by(id=item_id, user_id=user_id).first_or_404()
+
+    db.session.delete(item)
+    db.session.commit()
+
+    flash("Registro eliminado", "success")
+    return redirect(url_for("media.index"))
