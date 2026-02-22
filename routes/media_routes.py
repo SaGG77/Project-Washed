@@ -34,7 +34,7 @@ def new():
 
         if not title or not media_type or not rating_raw:
             flash("Titulo y tipo son obligatorios", "warning")
-            return redirect(url_for("media.new", form_data=request.form))
+            return render_template("media/new.html", form_data=request.form)
         
         rating = None
         if rating_raw:
@@ -42,11 +42,11 @@ def new():
                 rating = Decimal(rating_raw)
             except:
                 flash("La calificacion debe ser un número (ej: 3.5)")
-                return redirect(url_for("media.new", form_data=request.form))
+                return render_template("media/new.html", form_data=request.form)
         
         if rating < 0 or rating > 10:
             flash("La calificación debe estar entre 0 y 10.", "warning")
-            return redirect(url_for("media.new", form_data=request.form))
+            return render_template("media/new.html", form_data=request.form)
 
         start_date = None
         end_date = None
@@ -58,7 +58,7 @@ def new():
 
         if start_date and end_date and end_date < start_date:
             flash("La fecha fin no puede ser anterior a la fecha de inicio.", "warning")
-            return redirect(url_for("media.new", form_data=request.form))
+            return render_template("media/new.html", form_data=request.form)
 
         item = MediaItem(
             user_id=user_id,

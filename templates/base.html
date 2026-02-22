@@ -1,104 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Project Washed{% endblock %}</title>
     <link rel="icon" href="/static/img/logo_spotify.png">
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body>
 
-<div class="position-fixed top-0 end-0 p-3" style="z-index: 1080; margin-top: 70px;">
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, message in messages %}
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1080; margin-top: 70px;">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
         <div class="alert alert-{{ category }} alert-dismissible fade show mb-2" role="alert" style="min-width: 320px;">
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-</div>
+        {% endfor %} {% endif %} {% endwith %}
+    </div>
 
-<header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{ url_for('home') }}">
-      <i class="bi bi-emoji-wink"></i>
-      Project Washed
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ url_for('home') }}">
+                    <i class="bi bi-emoji-wink"></i> Project Washed
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link {% if request.endpoint == 'media.index' %}active fw-bold{% endif %}" href="{{ url_for('media.index') }}">
-            <i class="bi bi-film"></i>
-            Peliculas y series vistas
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.endpoint == 'auth.habitos' %}active fw-bold{% endif %}" aria-current="page" href="#">
-            <i class="bi bi-hourglass-split"></i>
-            Tiempos y hábitos
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.endpoint == 'auth.plata' %}active fw-bold{% endif %}" aria-current="page" href="#">
-            <i class="bi bi-cash-coin"></i>
-            La plata
-          </a>
-        </li>
-      {% if session.get('user_id') %}
-        <li class="nav-item">
-          <a class="nav-link {% if request.endpoint == 'auth.perfil' %}active fw-bold{% endif %}" href="{{ url_for('auth.perfil') }}">
-            <i class="bi bi-person-circle me-1"></i>Mi perfil
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-danger" href="{{ url_for('auth.logout') }}">
-            <i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión
-          </a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link {% if request.endpoint == 'auth.login' %}active fw-bold{% endif %}" href="{{ url_for('auth.login') }}">
-            <i class="bi bi-box-arrow-in-right me-1"></i>Ingresar
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.endpoint == 'auth.register' %}active fw-bold{% endif %}" href="{{ url_for('auth.register') }}">
-            <i class="bi bi-pencil-square me-1"></i>Registrarse
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-    </div>
-  </div>
-</nav>
-</header>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'media.index' %}active fw-bold{% endif %}" href="{{ url_for('media.index') }}">
+                                <i class="bi bi-film"></i> Peliculas y series vistas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'auth.habitos' %}active fw-bold{% endif %}" aria-current="page" href="#">
+                                <i class="bi bi-hourglass-split"></i> Tiempos y hábitos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'auth.plata' %}active fw-bold{% endif %}" aria-current="page" href="#">
+                                <i class="bi bi-cash-coin"></i> La plata
+                            </a>
+                        </li>
+                        {% if session.get('user_id') %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'auth.perfil' %}active fw-bold{% endif %}" href="{{ url_for('auth.perfil') }}">
+                                <i class="bi bi-person-circle me-1"></i>Mi perfil
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="{{ url_for('auth.logout') }}">
+                                <i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'auth.login' %}active fw-bold{% endif %}" href="{{ url_for('auth.login') }}">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Ingresar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'auth.register' %}active fw-bold{% endif %}" href="{{ url_for('auth.register') }}">
+                                <i class="bi bi-pencil-square me-1"></i>Registrarse
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-<main>
-  {% block content %}
-  {% endblock %}
-</main>
+    <main>
+        {% block content %} {% endblock %}
+    </main>
 
-{% block footer %}
-<footer class="text-muted py-5">
-  <div class="container">
-    <p class="float-end mb-1">
-      <a href="#">Volver arriba</a>
-    </p>
-    <p class="mb-1">¿Te encanto la página y quieres apoyarme? (Haré de cuenta que dijsite que si)</p>
-    <p class="mb-0"> Entonces podrías <a href="https://www.bing.com/images/search?q=gatos%20peque%C3%B1os&qs=n&form=QBIR&sp=-1&lq=0&pq=gatos%20peque%C3%B1o&sc=10-13&cvid=3DD7742545B343F38F1DDF56CAC0C192&first=1", target="_blank">regalarme una gaseosa</a></p>
-  </div>
-</footer>
-{% endblock %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    {% block footer %}
+    <footer class="text-muted py-5">
+        <div class="container">
+            <p class="float-end mb-1">
+                <a href="#">Volver arriba</a>
+            </p>
+            <p class="mb-1">¿Te encanto la página y quieres apoyarme? (Haré de cuenta que dijsite que si)</p>
+            <p class="mb-0"> Entonces podrías <a href="https://www.bing.com/images/search?q=gatos%20peque%C3%B1os&qs=n&form=QBIR&sp=-1&lq=0&pq=gatos%20peque%C3%B1o&sc=10-13&cvid=3DD7742545B343F38F1DDF56CAC0C192&first=1" , target="_blank">regalarme una gaseosa</a></p>
+        </div>
+    </footer>
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
+
 </html>
