@@ -33,7 +33,7 @@
 
         <div class="mb-3">
             <label class="form-label">Notas <span class="text-muted">(opcional)</span></label>
-            <textarea class="form-control" name="notes" rows="3" value="{{ form_data.get('notes','') if form_data else '' }}"></textarea>
+            <textarea class="form-control" name="notes" rows="3">{{ form_data.get('notes','') if form_data else '' }}</textarea>
         </div>
 
         <div class="mb-3">

@@ -28,7 +28,7 @@ def new():
         notes = request.form.get("notes","").strip()
         status = request.form.get("status","").strip()
         rating_raw = request.form.get("rating","").strip()
-        tags = request.form.get("tags ","").strip() or None
+        tags = request.form.get("tags","").strip() or None
         start_date_raw = request.form.get("start_date","").strip()
         end_date_raw = request.form.get("end_date","").strip()
 

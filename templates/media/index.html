@@ -27,9 +27,11 @@
 
 
                     <div class="mt-3 d-flex gap-2">
-                        <form method="POST" action="{{ url_for('media.delete', item_id=item.id) }}" class="js-delete-form">
-                            <button type="sumbit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                        </form>
+                        <div data-item-id="{{ item.id }}">
+                            <form method="POST" action="{{ url_for('media.delete', item_id=item.id) }}" class="js-delete-form">
+                                <button type="sumbit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </form>
+                        </div>    
 
                         <a class="btn btn-sm btn-outline-warning" href="{{ url_for('media.edit', item_id=item.id) }}">
                         Editar
