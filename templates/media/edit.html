@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-4">
+  <h2 class="mb-3">Editar registro</h2>
+
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label">Títulillo</label>
+      <input class="form-control" name="title" required
+             value="{{ form_data.get('title', item.title) if form_data else item.title }}">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Tipo</label>
+      {% set current_type = form_data.get('media_type') if form_data else item.media_type %}
+      <select class="form-select" name="media_type" required>
+        <option value="" {% if not current_type %}selected{% endif %}>Selecciona</option>
+        <option value="movie"  {% if current_type == 'movie' %}selected{% endif %}>Pelicula</option>
+        <option value="series" {% if current_type == 'series' %}selected{% endif %}>Serie</option>
+        <option value="music"  {% if current_type == 'music' %}selected{% endif %}>Música</option>
+        <option value="book"   {% if current_type == 'book' %}selected{% endif %}>Libro</option>
+        <option value="game"   {% if current_type == 'game' %}selected{% endif %}>Juego</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Tags (opcional)</label>
+      <input class="form-control" name="tags" maxlength="40"
+             placeholder="Ej: acción, clásico, favorito"
+             value="{{ form_data.get('tags', item.tags or '') if form_data else (item.tags or '') }}">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Calificación (0.0 a 10.0)</label>
+      <input class="form-control" type="number" name="rating" min="0" max="10" step="0.1" required
+             value="{{ form_data.get('rating', item.rating) if form_data else item.rating }}">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Notas <span class="text-muted">(opcional)</span></label>
+      <textarea class="form-control" name="notes" rows="3">{{ form_data.get('notes', item.notes or '') if form_data else (item.notes or '') }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Estado</label>
+      {% set current_status = form_data.get('status') if form_data else item.status %}
+      <select class="form-select" name="status" required>
+        <option value="" {% if not current_status %}selected{% endif %}>Selecciona…</option>
+        <option value="planned"     {% if current_status == 'planned' %}selected{% endif %}>Planeado</option>
+        <option value="in_progress" {% if current_status == 'in_progress' %}selected{% endif %}>En proceso</option>
+        <option value="done"        {% if current_status == 'done' %}selected{% endif %}>Terminado</option>
+        <option value="dropped"     {% if current_status == 'dropped' %}selected{% endif %}>Abandonado</option>
+      </select>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Fecha de inicio (opcional)</label>
+        <input class="form-control" type="date" name="start_date"
+               value="{% if form_data %}{{ form_data.get('start_date','') }}{% else %}{{ item.start_date or '' }}{% endif %}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Fecha fin (opcional)</label>
+        <input class="form-control" type="date" name="end_date"
+               value="{% if form_data %}{{ form_data.get('end_date','') }}{% else %}{{ item.end_date or '' }}{% endif %}">
+      </div>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-primary" type="submit">Guardar cambios</button>
+      <a class="btn btn-outline-secondary" href="{{ url_for('media.index') }}">Volver</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
