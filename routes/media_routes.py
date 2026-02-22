@@ -93,15 +93,56 @@ def delete(item_id):
     flash("Registro eliminado", "success")
     return redirect(url_for("media.index"))
 
-@media_bp.route("/<int:item_id>/edit", methods=["GET, POST"])
+@media_bp.route("/<int:item_id>/edit", methods=["GET", "POST"])
 @login_required
 def edit(item_id):
     user_id = session["user_id"]
-
     item = MediaItem.query.filter_by(id=item_id, user_id=user_id).first_or_404()
 
-    db.session.delete(item)
-    db.session.commit()
+    if request.method == "POST":
+        title = request.form.get("title", "").strip()
+        media_type = request.form.get("media_type", "").strip()
+        notes = request.form.get("notes", "").strip()
+        status = request.form.get("status", "").strip()
+        rating_raw = request.form.get("rating", "").strip()
+        tags = request.form.get("tags", "").strip() or None
+        start_date_raw = request.form.get("start_date", "").strip()
+        end_date_raw = request.form.get("end_date", "").strip()
 
-    flash("Registro eliminado", "success")
-    return redirect(url_for("media.index"))
+        # Mismas validaciones que en new
+        if not title or not media_type or not rating_raw:
+            flash("Título, tipo y calificación son obligatorios.", "warning")
+            return render_template("media/edit.html", item=item, form_data=request.form)
+
+        try:
+            rating = Decimal(rating_raw)
+        except:
+            flash("La calificación debe ser un número (ej: 3.5)", "warning")
+            return render_template("media/edit.html", item=item, form_data=request.form)
+
+        if rating < 0 or rating > 10:
+            flash("La calificación debe estar entre 0 y 10.", "warning")
+            return render_template("media/edit.html", item=item, form_data=request.form)
+
+        start_date = datetime.strptime(start_date_raw, "%Y-%m-%d").date() if start_date_raw else None
+        end_date = datetime.strptime(end_date_raw, "%Y-%m-%d").date() if end_date_raw else None
+
+        if start_date and end_date and end_date < start_date:
+            flash("La fecha fin no puede ser anterior a la fecha de inicio.", "warning")
+            return render_template("media/edit.html", item=item, form_data=request.form)
+
+        item.title = title
+        item.media_type = media_type
+        item.notes = notes
+        item.status = status
+        item.rating = rating
+        item.tags = tags
+        item.start_date = start_date
+        item.end_date = end_date
+
+        db.session.commit()
+        flash("Registro actualizado", "success")
+        return redirect(url_for("media.index"))
+
+    # GET: mostrar form relleno
+    return render_template("media/edit.html", item=item)
