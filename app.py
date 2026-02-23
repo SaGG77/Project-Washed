@@ -8,11 +8,16 @@ from dotenv import load_dotenv
 from forms import RegistroForm, LoginForm
 # BASES DE DATOS
 from extensions import db, migrate
+# MEDIA
 from models.user import User
 from models.media_item import MediaItem
+# TIEMPO
+from models.habit import Habit
+from models.habit_log import HabitLog
 # BLUEPRINTS
 from routes.auth_routes import auth_bp
 from routes.media_routes import media_bp
+from routes.habit_routes import habit_bp
 
 load_dotenv()
 app = Flask(__name__)
@@ -26,6 +31,7 @@ migrate.init_app(app, db)
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(media_bp)
+app.register_blueprint(habit_bp)
 
 @app.route("/")
 def home():

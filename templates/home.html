@@ -7,7 +7,7 @@
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Project Washed</h1>
-        <p class="lead text-muted">Registrate para poder usar todas las funciones de la página</p>
+        <p class="lead text-muted">Aplicación multiuso</p>
         <p>
           {% if session.get('user_id') %} 
           <p class="text">¡Has iniciado sesión! puedes usar la página con tranquilidad</p>
@@ -20,9 +20,6 @@
     </div>
 </section>
 
-
-
-
 <div class="container my-3">
   <div class="row justify-content-center g-4">
     <div class="col-12 col-md-6 col-lg-4">
@@ -31,7 +28,7 @@
           <h5 class="card-title">Dashboard de hábitos/tiempo</h5>
           <p class="card-text">Guardas sesiones: “estudio”, “juego”, “trabajo”, “scroll”. <br>
              Estadísticas por semana, rachas, gráficos simples, exportar CSV.</p>
-          <a href="#" class="btn btn-primary">Ir a algún lugar</a>
+          <a href="{{ url_for('habits.index') }}" class="btn btn-primary">Ir a algún lugar</a>
         </div>
       </div>
     </div>
@@ -42,7 +39,7 @@
           <h5 class="card-title">Gestor de biblioteca/media</h5>
           <p class="card-text">Listas: “viendo”, “pendiente”, “completado”, rating, tags. <br>
             Diferentes filtros y posibilidades.</p>
-          <a href="#" class="btn btn-primary">Ir a algún lugar</a>
+          <a href="{{ url_for('media.index') }}" class="btn btn-primary">Ir a algún lugar</a>
         </div>
       </div>
     </div>
