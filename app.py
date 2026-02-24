@@ -3,7 +3,8 @@ from flask import Flask, render_template
 import os
 from dotenv import load_dotenv
 # Bases de datos y csrf
-from extensions import db, migrate, csrf
+from extensions import db, migrate
+from extensions import csrf
 # Rutas
 from routes.auth_routes import auth_bp
 from routes.media_routes import media_bp

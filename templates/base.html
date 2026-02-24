@@ -12,8 +12,6 @@
     <!-- CSRF -->
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
-    <!-- SweetAlert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <body>
 
     <div class="position-fixed top-0 end-0 p-3" style="z-index: 1080; margin-top: 70px;">
@@ -26,7 +24,7 @@
     </div>
 
     <header>
-        <nav class="navbar navbar-bg-primary navbar-expand-lg navbar-light bg-light" style="background-color: rgb(109, 24, 213);">
+        <nav class="navbar navbar-bg-primary navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url_for('home') }}">
                     <i class="bi bi-emoji-wink"></i> Project Washed
