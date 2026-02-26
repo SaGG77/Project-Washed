@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block title %} Nuevo hábito | Project Washed{% endblock %} 
+
+{% block content %}
+<div class="container">
+    <h1>Nuevo hábito</h1>
+        <form method="POST" action="{{ url_for('habit.new_habit') }}">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.name.label(class="form-label") }}
+                {{ form.name(class="form-control") }}
+                {% for err in form.name.errors %}
+                <div class="text-danger small">{{ err }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.target_minutes.label(class="form-label") }}
+                {{ form.target_minutes(class="form-control") }}
+                {% for err in form.target_minutes.errors %}
+                <div class="text-danger small">{{ err }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="form-check mb-3">
+                {{ form.is_active(class="form-check-input") }}
+                {{ form.is_active.label(class="form-check-label") }}
+            </div>
+            
+            <div class="mb-3">
+                {{ form.submit(class="btn btn-primary") }}
+                <a href="{{ url_for('habit.index') }}">Volver</a>
+            </div>
+        </form>
+</div>
+{% endblock %}

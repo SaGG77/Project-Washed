@@ -1,0 +1,4 @@
+
+flask db init      # solo una vez en el proyecto
+flask db migrate -m 
+flask db upgrade

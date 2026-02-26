@@ -3,6 +3,7 @@
     <h2 class="mb-3">Nuevo Registro</h2>
 
     <form method="POST">
+        {{ form.hidden_tag() }}
         <div class="mb-3">
             <label class="form-label">Títulillo</label>
             <input class="form-control" name="title" required value="{{ form_data.get('title','') if form_data else '' }}">

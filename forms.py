@@ -28,10 +28,10 @@ class LoginForm(FlaskForm):
 
 # --------------------------------------- FUNCIONES ---------------------------------------
 class HabitForm(FlaskForm):
-    name                = StringField('Nombre', validators=[DataRequired(), Length(120)])
+    name                = StringField('Nombre', validators=[DataRequired(), Length(max=120)])
     target_minutes      = IntegerField(
         'Meta de minutos',
         validators=[optional(), NumberRange(min=1, message="Debe ser mayor a 0")]
     )
-    is_active = BooleanField('Activo', default=True)
+    is_active = BooleanField('Activo(Todavía tienes este hábito)', default=True)
     submit = SubmitField('Guardar')

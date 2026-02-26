@@ -4,17 +4,17 @@
 {% block content %}
 <h1>Hábitos</h1>
 
-<a href="{{ url_for('habit.create_habit') }}">Nuevo hábito</a>
+<a href="{{ url_for('habit.new_habit') }}">Nuevo hábito</a>
 
 <ul>
   {% for h in habits %}
     <li>
-      {{ h.name }}
-      {% if h.target_minutes %} ({{ h.target_minutes }} min) {% endif %}
-      {% if not h.is_active %} — inactivo {% endif %}
+      <strong>{{ h.name }}</strong>
+      {% if h.target_minutes %} ({{ h.target_minutes }} min){% endif %}
+      {% if not h.is_active %} — <em>pausado</em>{% endif %}
+
+      <a href="{{ url_for('habit.edit_habit', habit_id=h.id) }}">Editar</a>
     </li>
-  {% else %}
-    <li>No tienes hábitos todavía.</li>
   {% endfor %}
 </ul>
 {% endblock %}

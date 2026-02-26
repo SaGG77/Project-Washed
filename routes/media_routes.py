@@ -144,5 +144,4 @@ def edit(item_id):
         flash("Registro actualizado", "success")
         return redirect(url_for("media.index"))
 
-    # GET: mostrar form relleno
     return render_template("media/edit.html", item=item)
