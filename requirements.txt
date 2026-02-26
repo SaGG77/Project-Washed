@@ -1,7 +1,7 @@
 Flask
 python-dotenv
 flask_wtf
-flask_sqlalchemy
+pymysql
 Werkzeug
 email_validator
 flask_migrate

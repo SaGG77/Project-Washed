@@ -13,6 +13,15 @@ from forms import HabitForm
 
 habit_bp = Blueprint("habit", __name__)
 
+@habit_bp.route("/index", methods=["GET"])
+@login_required
+def index():
+    user_id = session.get("user_id")
+
+    habits = Habit.query.filter_by(user_id=user_id).order_by(Habit.created_at.desc()).all()
+
+    return render_template("/habits/index.html", habits=habits)
+
 @habit_bp.route("/habits/new_habit", methods=["GET", "POST"])
 @login_required
 def new_habit():
@@ -32,15 +41,6 @@ def new_habit():
         return redirect(url_for("habit.index"))
     return render_template("habits/new.html", form=form)
 
-
-@habit_bp.route("/index", methods=["GET"])
-@login_required
-def index():
-    user_id = session.get("user_id")
-
-    habits = Habit.query.filter_by(user_id=user_id).order_by(Habit.created_at.desc()).all()
-
-    return render_template("/habits/index.html", habits=habits)
 
 """"
 @habit_bp.route("/<int:item_id>/delete", methods=["POST"])
