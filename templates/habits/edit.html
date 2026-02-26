@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Editar hábito | Project Washed{% endblock %}
+{% block content %}
+<div class="container my-4" style="max-width: 720px;">
+    <h2 class="mb-3">Editar hábito</h2>
+
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" name="name" required value="{{ habit.name }}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Meta diaria (minutos, opcional)</label>
+            <input class="form-control" type="number" name="target_minutes" min="1" value="{{ habit.target_minutes if habit.target_minutes is not none else '' }}">
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="is_active" id="is_active" {% if habit.is_active %}checked{% endif %}>
+            <label class="form-check-label" for="is_active">Hábito activo</label>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary" type="submit">Guardar cambios</button>
+            <a class="btn btn-outline-secondary" href="{{ url_for('habit.habits') }}">Volver</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

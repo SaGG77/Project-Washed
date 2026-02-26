@@ -40,13 +40,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.endpoint == 'auth.habitos' %}active fw-bold{% endif %}" aria-current="page" href="#">
+                            <a class="nav-link {% if request.endpoint in ['habit.habits','habit.edit_habit','habit.delete_habit','habit.toggle_habit'] %}active fw-bold{% endif %}" href="{{ url_for('habit.habits') }}">
                                 <i class="bi bi-hourglass-split"></i> Tiempos y hábitos
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.endpoint == 'auth.plata' %}active fw-bold{% endif %}" aria-current="page" href="#">
-                                <i class="bi bi-cash-coin"></i> La plata
+                            <a class="nav-link {% if request.endpoint == 'habit.dashboard' %}active fw-bold{% endif %}" href="{{ url_for('habit.dashboard') }}">
+                                <i class="bi bi-bar-chart-line"></i> Dashboard hábitos
                             </a>
                         </li>
                         {% if session.get('user_id') %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Dashboard hábitos | Project Washed{% endblock %}
+{% block content %}
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Dashboard de hábitos</h2>
+        <a class="btn btn-outline-secondary" href="{{ url_for('habit.habits') }}">Volver a hábitos</a>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-3"><div class="card"><div class="card-body"><h6>Hábitos activos</h6><h3>{{ habits_count }}</h3></div></div></div>
+        <div class="col-md-3"><div class="card"><div class="card-body"><h6>Días cumplidos (7)</h6><h3>{{ completed_last_7 }}</h3></div></div></div>
+        <div class="col-md-3"><div class="card"><div class="card-body"><h6>% cumplimiento (7)</h6><h3>{{ compliance_7 }}%</h3></div></div></div>
+        <div class="col-md-3"><div class="card"><div class="card-body"><h6>% cumplimiento (30)</h6><h3>{{ compliance_30 }}%</h3></div></div></div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6"><div class="card"><div class="card-body"><h6>Racha actual</h6><h3>{{ current_streak }} días</h3></div></div></div>
+        <div class="col-md-6"><div class="card"><div class="card-body"><h6>Mejor racha</h6><h3>{{ best_streak }} días</h3></div></div></div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Top hábitos</h5>
+            {% if top_habits %}
+            <ol class="mb-0">
+                {% for habit in top_habits %}
+                <li>{{ habit.name }}</li>
+                {% endfor %}
+            </ol>
+            {% else %}
+            <p class="mb-0 text-muted">Todavía no hay registros suficientes para calcular el top.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
