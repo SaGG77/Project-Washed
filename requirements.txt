@@ -5,3 +5,4 @@ pymysql
 Werkzeug
 email_validator
 flask_migrate
+cryptography

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Nueva categoría | La plata{% endblock %}
+
+{% block content %}
+<div class="container my-4" style="max-width: 720px;">
+  <h1 class="h4 mb-3">Nueva categoría</h1>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+      {{ form.name.label(class="form-label") }}
+      {{ form.name(class="form-control", placeholder="Ej: Comida") }}
+      {% for err in form.name.errors %}
+        <div class="text-danger small">{{ err }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.kind.label(class="form-label") }}
+      {{ form.kind(class="form-select") }}
+      {% for err in form.kind.errors %}
+        <div class="text-danger small">{{ err }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="d-flex gap-2">
+      {{ form.submit(class="btn btn-primary") }}
+      <a class="btn btn-outline-secondary" href="{{ url_for('finance.categories_index') }}">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

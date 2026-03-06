@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Historial | La plata{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">Historial</h1>
+    <div class="d-flex gap-2">
+      <a class="btn btn-outline-secondary" href="{{ url_for('finance.categories_index') }}">Categorías</a>
+      <a class="btn btn-primary" href="{{ url_for('finance.transaction_new') }}">Nueva transacción</a>
+    </div>
+  </div>
+
+  <form class="row g-2 mb-3" method="GET">
+    <div class="col-md-3">
+      <select class="form-select" name="type">
+        <option value="" {% if not q_type %}selected{% endif %}>Todos</option>
+        <option value="expense" {% if q_type == 'expense' %}selected{% endif %}>Gastos</option>
+        <option value="income" {% if q_type == 'income' %}selected{% endif %}>Ingresos</option>
+      </select>
+    </div>
+
+    <div class="col-md-5">
+      <select class="form-select" name="category_id">
+        <option value="" {% if not q_category %}selected{% endif %}>Todas las categorías</option>
+        {% for c in categories %}
+          <option value="{{ c.id }}" {% if q_category|int == c.id %}selected{% endif %}>
+            {{ c.name }} ({{ c.kind }})
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <button class="btn btn-outline-primary w-100" type="submit">Filtrar</button>
+    </div>
+
+    <div class="col-md-2">
+      <a class="btn btn-outline-secondary w-100" href="{{ url_for('finance.transactions_index') }}">Limpiar</a>
+    </div>
+  </form>
+
+  {% if transactions %}
+  <div class="card">
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Fecha</th><th>Tipo</th><th>Monto</th><th>Categoría</th><th>Notas</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tx in transactions %}
+          <tr>
+            <td>{{ tx.date }}</td>
+            <td>{{ tx.type }}</td>
+            <td>${{ format_cop(tx.amount) }}</td>
+            <td>{{ tx.category_id }}</td>
+            <td class="text-muted">{{ tx.notes or "" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+    <p class="text-muted">No hay transacciones con esos filtros.</p>
+  {% endif %}
+</div>
+{% endblock %}

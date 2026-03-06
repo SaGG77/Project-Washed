@@ -10,11 +10,7 @@ class HabitLog(db.Model):
 
     # Fecha del registro
     log_date = db.Column(db.Date, nullable=False, index=True)
-
-    # Meta de minutos al dia
     completed = db.Column(db.Boolean, default=False, nullable=True)
-
-    # Bandera para activar o desactivar hábito sin borrarlo
     minutes = db.Column(db.Integer, nullable=False)
 
     # Timestamp de creación

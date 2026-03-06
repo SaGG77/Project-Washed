@@ -40,7 +40,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.endpoint == 'auth.habitos' %}active fw-bold{% endif %}" aria-current="page" href="#">
+                            <a class="nav-link {% if request.endpoint == 'habit.index' %}active fw-bold{% endif %}" aria-current="page" href="{{ url_for('habit.index') }}">
                                 <i class="bi bi-hourglass-split"></i> Tiempos y hábitos
                             </a>
                         </li>

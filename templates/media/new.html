@@ -4,65 +4,60 @@
 
     <form method="POST">
         {{ form.hidden_tag() }}
-        <div class="mb-3">
-            <label class="form-label">Títulillo</label>
-            <input class="form-control" name="title" required value="{{ form_data.get('title','') if form_data else '' }}">
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label">Tipo</label>
-            <select class="form-select" name="media_type" required>
-            <option value="" {% if not form_data or not form_data.get('media_type') %}selected{% endif %}>Selecciona</option>
-
-            <option value="movie"  {% if form_data and form_data.get('media_type') == 'movie' %}selected{% endif %}>Pelicula</option>
-            <option value="series" {% if form_data and form_data.get('media_type') == 'series' %}selected{% endif %}>Serie</option>
-            <option value="music"  {% if form_data and form_data.get('media_type') == 'music' %}selected{% endif %}>Música</option>
-            <option value="book"   {% if form_data and form_data.get('media_type') == 'book' %}selected{% endif %}>Libro</option>
-            <option value="game"   {% if form_data and form_data.get('media_type') == 'game' %}selected{% endif %}>Juego</option>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Tags (opcional)</label>
-            <input class="form-control" name="tags" maxlength="40" placeholder="Ej: acción, clásico, favorito" value="{{ form_data.get('tags','') if form_data else '' }}">
-        </div>
-
-        <div class="mb-3">
-            <label action="form-label">Calificación (0.0 a 10.0)</label>
-            <input class="form-control" type="number" name="rating" min="0" max="10" step="0.1" placeholder="Ej: 8.5" required value="{{ form_data.get('rating','') if form_data else '' }}">
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Notas <span class="text-muted">(opcional)</span></label>
-            <textarea class="form-control" name="notes" rows="3">{{ form_data.get('notes','') if form_data else '' }}</textarea>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Estado</label>
-            <select class="form-select" name="status" required>
-                <option value="" {% if not form_data or not form_data.get('status') %}selected{% endif %}>Selecciona…</option>
-                <option value="planned"     {% if form_data and form_data.get('status') == 'planned' %}selected{% endif %}>Planeado</option>
-                <option value="in_progress" {% if form_data and form_data.get('status') == 'in_progress' %}selected{% endif %}>En proceso</option>
-                <option value="done"        {% if form_data and form_data.get('status') == 'done' %}selected{% endif %}>Terminado</option>
-                <option value="dropped"     {% if form_data and form_data.get('status') == 'dropped' %}selected{% endif %}>Abandonado</option>
-            </select>
-        </div>
-
-        <div class="row g-3 mb-3">
-            <div class="col-md-6">
-                <label class="form-label">Fecha de inicio (opcional)</label>
-                <input class="form-control" type="date" name="start_date" value="{{ form_data.get('start_date','') if form_data else '' }}">
+            <div class="mb-3">
+                {{ form.title.label(class="form-label") }}
+                {{ form.title(class="form-control") }}
+                {% for err in form.title.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
             </div>
-            <div class="col-md-6">
-                <label class="form-label">Fecha fin (opcional)</label>
-                <input class="form-control" name="end_date" type="date" value="{{ form_data.get('end_date','') if form_data else '' }}">
-            </div>
-        </div>
 
-        <div class="d-flex gap-2">
-            <button class="btn btn-primary" type="submit">Guardar</button>
-            <a class="btn btn-outline-secondary" href="{{ url_for('media.index') }}">Volver</a>
-        </div>
+            <div class="mb-3">
+                {{ form.media_type.label(class="form-label") }}
+                {{ form.media_type(class="form-select") }}
+                {% for err in form.media_type.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.tags.label(class="form-label") }}
+                {{ form.tags(class="form-control", placeholder="Ej: acción, clásico, favorito") }}
+                {% for err in form.tags.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.rating.label(class="form-label") }}
+                {{ form.rating(class="form-control", type="number", min="0", max="10", step="0.1", placeholder="Ej: 8.5") }}
+                {% for err in form.rating.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.notes.label(class="form-label") }}
+                {{ form.notes(class="form-control", rows="3") }}
+                {% for err in form.notes.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.status.label(class="form-label") }}
+                {{ form.status(class="form-select") }}
+                {% for err in form.status.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                {{ form.start_date.label(class="form-label") }}
+                {{ form.start_date(class="form-control", type="date") }}
+                {% for err in form.start_date.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+                </div>
+                <div class="col-md-6">
+                {{ form.end_date.label(class="form-label") }}
+                {{ form.end_date(class="form-control", type="date") }}
+                {% for err in form.end_date.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                {{ form.submit(class="btn btn-primary") }}
+                <a class="btn btn-outline-secondary" href="{{ url_for('media.index') }}">Volver</a>
+            </div>
     </form>
 </div>
 {% endblock %}

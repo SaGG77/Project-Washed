@@ -2,19 +2,23 @@
 {% block title %}Login | Project Washed{% endblock %}
 
 {% block content %}
+<div class="container justify-content-center ">
 <h1>Hábitos</h1>
 
 <a href="{{ url_for('habit.new_habit') }}">Nuevo hábito</a>
 
-<ul>
-  {% for h in habits %}
-    <li>
-      <strong>{{ h.name }}</strong>
-      {% if h.target_minutes %} ({{ h.target_minutes }} min){% endif %}
-      {% if not h.is_active %} — <em>pausado</em>{% endif %}
+    <ul>
+    {% for h in habits %}
+      <li>
+        <strong>{{ h.name }}</strong>
+        {% if h.target_minutes %} ({{ h.target_minutes }} min){% endif %}
+        {% if not h.is_active %} — <em>pausado</em>{% endif %}
 
-      <a href="{{ url_for('habit.edit_habit', habit_id=h.id) }}">Editar</a>
-    </li>
-  {% endfor %}
-</ul>
+        <a href="{{ url_for('habit.edit_habit', habit_id=h.id) }}">Editar</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
 {% endblock %}
