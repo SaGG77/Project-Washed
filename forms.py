@@ -10,7 +10,14 @@ from wtforms import (
     TextAreaField, 
     DecimalField
     )
-from wtforms.validators import DataRequired, EqualTo, Email, Length, Optional, NumberRange
+from wtforms.validators import (
+    DataRequired,
+    EqualTo,
+    Email,
+    Length,
+    Optional,
+    NumberRange,
+    ValidationError)
 
 # --------------------------------------- USUARIO ---------------------------------------
 class RegistroForm(FlaskForm):
@@ -78,6 +85,11 @@ class MediaForm(FlaskForm):
 
     start_date = DateField("Fecha de inicio (opcional)", validators=[Optional()])
     end_date = DateField("Fecha fin (opcional)", validators=[Optional()])
+    
+    def validate_end_date(self, field):
+        if self.start_date.data and field.data and field.data < self.start_date.data:
+            raise ValidationError("La fecha fin no puede ser anterior a la fecha de inicio.")
+
 
     submit = SubmitField("Guardar")
 
@@ -108,6 +120,7 @@ class TransactionForm(FlaskForm):
 
 class CategoryForm(FlaskForm):
     name = StringField("Nombre", validators=[DataRequired(), Length(max=120)])
-    kind = SelectField("Tipo", choices=[("expense", "Gasto"), ("income", "Ingreso"), ("both","Ambos")], validators=[DataRequired()])
+    # Modificar
+    kind = SelectField("Tipo", choices=[("", ""), ("", ""), ("","")], validators=[DataRequired()])
 
     submit = SubmitField("Guardar")

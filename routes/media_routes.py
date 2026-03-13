@@ -4,6 +4,7 @@ from decimal import Decimal
 from datetime import datetime
 # PROPIO
 from utils.auth import login_required
+from forms import MediaForm
 # BASES DE DATOS
 from models.media_item import MediaItem
 from extensions import db
@@ -20,65 +21,33 @@ def index():
 @media_bp.route("/new", methods=["GET", "POST"])
 @login_required
 def new():
-    if request.method == "POST":
+    form = MediaForm()
+
+    if form.validate_on_submit():
         user_id = session["user_id"]
-
-        title = request.form.get("title","").strip()
-        media_type = request.form.get("media_type","").strip()
-        notes = request.form.get("notes","").strip()
-        status = request.form.get("status","").strip()
-        rating_raw = request.form.get("rating","").strip()
-        tags = request.form.get("tags","").strip() or None
-        start_date_raw = request.form.get("start_date","").strip()
-        end_date_raw = request.form.get("end_date","").strip()
-
-        if not title or not media_type or not rating_raw:
-            flash("Titulo y tipo son obligatorios", "warning")
-            return render_template("media/new.html", form_data=request.form)
-        
-        rating = None
-        if rating_raw:
-            try:
-                rating = Decimal(rating_raw)
-            except:
-                flash("La calificacion debe ser un número (ej: 3.5)")
-                return render_template("media/new.html", form_data=request.form)
-        
-        if rating < 0 or rating > 10:
-            flash("La calificación debe estar entre 0 y 10.", "warning")
-            return render_template("media/new.html", form_data=request.form)
-
-        start_date = None
-        end_date = None
-
-        if start_date_raw:
-            start_date = datetime.strptime(start_date_raw, "%Y-%m-%d").date()
-        if end_date_raw:
-            end_date = datetime.strptime(end_date_raw, "%Y-%m-%d").date()
-
-        if start_date and end_date and end_date < start_date:
-            flash("La fecha fin no puede ser anterior a la fecha de inicio.", "warning")
-            return render_template("media/new.html", form_data=request.form)
 
         item = MediaItem(
             user_id=user_id,
-            title=title,
-            media_type=media_type,
-            status=status,
-            rating=rating,
-            tags=tags,
-            notes=notes,
-            start_date=start_date,
-            end_date=end_date
-            
+            title=form.title.data.strip(),
+            media_type=form.media_type.data,
+            status=form.status.data,
+            rating=float(form.rating.data) if form.rating.data is not None else None,
+            tags=(form.tags.data or "").strip() or None,
+            notes=(form.notes.data or "").strip() or None,
+            start_date=form.start_date.data,
+            end_date=form.end_date.data,
         )
+
         db.session.add(item)
         db.session.commit()
 
-        flash("Creado", "success")
+        flash("Registro creado correctamente", "success")
         return redirect(url_for("media.index"))
 
-    return render_template("media/new.html")
+    if request.method == "POST":
+        flash("Revisa el formulario, hay campos inválidos", "warning")
+
+    return render_template("media/new.html", form=form)
 
 @media_bp.route("/<int:item_id>/delete", methods=["POST"])
 @login_required
@@ -99,49 +68,23 @@ def edit(item_id):
     user_id = session["user_id"]
     item = MediaItem.query.filter_by(id=item_id, user_id=user_id).first_or_404()
 
-    if request.method == "POST":
-        title = request.form.get("title", "").strip()
-        media_type = request.form.get("media_type", "").strip()
-        notes = request.form.get("notes", "").strip()
-        status = request.form.get("status", "").strip()
-        rating_raw = request.form.get("rating", "").strip()
-        tags = request.form.get("tags", "").strip() or None
-        start_date_raw = request.form.get("start_date", "").strip()
-        end_date_raw = request.form.get("end_date", "").strip()
+    form = MediaForm(obj=item)  # 👈 precarga con lo que ya existe
 
-        # Mismas validaciones que en new
-        if not title or not media_type or not rating_raw:
-            flash("Título, tipo y calificación son obligatorios.", "warning")
-            return render_template("media/edit.html", item=item, form_data=request.form)
-
-        try:
-            rating = Decimal(rating_raw)
-        except:
-            flash("La calificación debe ser un número (ej: 3.5)", "warning")
-            return render_template("media/edit.html", item=item, form_data=request.form)
-
-        if rating < 0 or rating > 10:
-            flash("La calificación debe estar entre 0 y 10.", "warning")
-            return render_template("media/edit.html", item=item, form_data=request.form)
-
-        start_date = datetime.strptime(start_date_raw, "%Y-%m-%d").date() if start_date_raw else None
-        end_date = datetime.strptime(end_date_raw, "%Y-%m-%d").date() if end_date_raw else None
-
-        if start_date and end_date and end_date < start_date:
-            flash("La fecha fin no puede ser anterior a la fecha de inicio.", "warning")
-            return render_template("media/edit.html", item=item, form_data=request.form)
-
-        item.title = title
-        item.media_type = media_type
-        item.notes = notes
-        item.status = status
-        item.rating = rating
-        item.tags = tags
-        item.start_date = start_date
-        item.end_date = end_date
+    if form.validate_on_submit():
+        item.title = form.title.data.strip()
+        item.media_type = form.media_type.data
+        item.status = form.status.data
+        item.rating = float(form.rating.data) if form.rating.data is not None else None
+        item.tags = (form.tags.data or "").strip() or None
+        item.notes = (form.notes.data or "").strip() or None
+        item.start_date = form.start_date.data
+        item.end_date = form.end_date.data
 
         db.session.commit()
         flash("Registro actualizado", "success")
         return redirect(url_for("media.index"))
 
-    return render_template("media/edit.html", item=item)
+    if request.method == "POST":
+        flash("Revisa el formulario, hay campos inválidos", "warning")
+
+    return render_template("media/edit.html", form=form, item=item)

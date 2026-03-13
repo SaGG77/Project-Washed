@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 confirmButtonText: "Si, eliminar",
                 cancelButtonText: "Cancelar",
             });
-            if (r.isConfirmed) form.submit(); // se recarga con flask que tambien borra
+            if (r.isConfirmed) form.submit();
         });
     });
 });
