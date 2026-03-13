@@ -53,9 +53,9 @@
           {% for tx in transactions %}
           <tr>
             <td>{{ tx.date }}</td>
-            <td>{{ tx.type }}</td>
+            <td>{% if tx.type == "expense"%}Gasto{% else %}Ingreso{% endif %}</td>
             <td>${{ format_cop(tx.amount) }}</td>
-            <td>{{ tx.category_id }}</td>
+            <td>{{ tx.categories_map.get(tx.category_id).name if categories_map.get(tx.category_id) else "Sin categoría" }}</td>
             <td class="text-muted">{{ tx.notes or "" }}</td>
           </tr>
           {% endfor %}

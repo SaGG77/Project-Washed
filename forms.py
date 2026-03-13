@@ -111,7 +111,7 @@ class TransactionForm(FlaskForm):
     choices=[("expense", "Gasto"),("income","Ingreso")], 
     validators=[DataRequired()]
     )
-    amount = StringField('Monto (COP)', validators=[Optional(),])
+    amount = StringField('Monto (COP)', validators=[DataRequired(),])
     date = DateField("Fecha", validators=[DataRequired()])
     category_id = SelectField('Categoría', coerce=int, validators=[DataRequired()])
     notes = TextAreaField("Notas")
@@ -121,6 +121,10 @@ class TransactionForm(FlaskForm):
 class CategoryForm(FlaskForm):
     name = StringField("Nombre", validators=[DataRequired(), Length(max=120)])
     # Modificar
-    kind = SelectField("Tipo", choices=[("", ""), ("", ""), ("","")], validators=[DataRequired()])
+    kind = SelectField(
+        "Tipo",
+        choices=[("expense", "Gasto"), ("income", "Ingreso")],
+        validators=[DataRequired()],
+    )
 
     submit = SubmitField("Guardar")

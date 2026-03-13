@@ -45,8 +45,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.endpoint == 'finance.index' %}active fw-bold{% endif %}" aria-current="page" href="{{ url_for('finance.index') }}">
-                                <i class="bi bi-cash-coin"></i> La plata
+                            <a class="nav-link {% if request.endpoint and request.endpoint.startswith('finance.') %}active fw-bold{% endif %}" aria-current="page" href="{{ url_for('finance.dashboard') }}">
+                                <i class="bi bi-piggy-bank"></i> La plata
                             </a>
                         </li>
                         {% if session.get('user_id') %}

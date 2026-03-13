@@ -85,11 +85,13 @@ def transactions_index():
         .order_by(Category.kind.asc(), Category.name.asc())
         .all()
     )
+    categories_map = {c.id: c for c in categories}
 
     return render_template(
-        "finance/transactions/index.html",
+        "finance/index.html",
         transactions=transactions,
         categories=categories,
+        categories_map=categories_map,
         format_cop=format_cop,
         q_type=q_type,
         q_category=q_category,
@@ -123,7 +125,7 @@ def transaction_new():
             amount_int = parse_cop_to_int(form.amount.data)
         except ValueError:
             flash("Monto inválido. Ejemplo válido: 1.234.567", "danger")
-            return render_template("finance/transactions/new.html", form=form)
+            return render_template("finance/new.html", form=form)
 
         tx = Transaction(
             user_id=user_id,
@@ -139,7 +141,7 @@ def transaction_new():
         flash("Transacción guardada.", "success")
         return redirect(url_for("finance.transactions_index"))
 
-    return render_template("finance/transactions/new.html", form=form)
+    return render_template("finance/new.html", form=form)
 
 
 # -------------------------
@@ -172,7 +174,7 @@ def categories_new():
         db.session.commit()
 
         flash("Categoría creada.", "success")
-        return redirect(url_for("finance.categories_index"))
+        return redirect(url_for("finance.categories.index"))
 
     return render_template("finance/categories/new.html", form=form)
 
@@ -204,9 +206,9 @@ def categories_delete(category_id):
     in_use = Transaction.query.filter_by(user_id=user_id, category_id=category.id).first()
     if in_use:
         flash("No puedes borrar esta categoría porque ya tiene transacciones.", "warning")
-        return redirect(url_for("finance.categories_index"))
+        return redirect(url_for("finance.categories.index"))
 
     db.session.delete(category)
     db.session.commit()
     flash("Categoría eliminada.", "success")
-    return redirect(url_for("finance.categories_index"))
+    return redirect(url_for("finance.categories.index"))
