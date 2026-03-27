@@ -35,12 +35,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link {% if request.endpoint == 'media.index' %}active fw-bold{% endif %}" href="{{ url_for('media.index') }}">
+                            <a class="nav-link {% if request.endpoint and request.method.startswith('media') %}active fw-bold{% endif %}" href="{{ url_for('media.index') }}">
                                 <i class="bi bi-film"></i> Peliculas y series vistas
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.endpoint == 'habit.index' %}active fw-bold{% endif %}" aria-current="page" href="{{ url_for('habit.index') }}">
+                            <a class="nav-link {% if request.endpoint and request.endpoint.startswith('habits.') %}active fw-bold{% endif %}" aria-current="page" href="{{ url_for('habit.index') }}">
                                 <i class="bi bi-hourglass-split"></i> Tiempos y hábitos
                             </a>
                         </li>

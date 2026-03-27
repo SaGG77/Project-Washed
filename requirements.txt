@@ -1,5 +1,6 @@
 Flask
 python-dotenv
+dotenv
 flask_wtf
 pymysql
 Werkzeug

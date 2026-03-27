@@ -13,16 +13,43 @@
             <div class="card h-100" data-item-id="{{ item.id }}" >
                 <div class="card-body">
                     <h5 class="card-title mb-1">{{ item.title }}</h5>
-                    <div class="text-muted mb-2">
-                        {% set labels = { 'movie':'Película', 'series':'Serie', 'music':'Música', 'book':'Libro', 'game':'Juego' } %} {{ labels.get(item.media_type, item.media_type) }}
+                    
+                   {% set labels_type = {
+                    'movie': 'Película',
+                    'series': 'Serie',
+                    'music': 'Música',
+                    'book': 'Libro',
+                    'game': 'Juego'
+                } %}
 
-                    </div>
+                {% set labels_status = {
+                    'planned': 'Planeado',
+                    'in_progress': 'En proceso',
+                    'done': 'Terminado',
+                    'dropped': 'Abandonado'
+                } %}
+            
+                <div class="text-muted"> {{ labels_type.get(item.media_type, item.media_type) }}</div>
 
-                    {% if item.rating is not none %}
-                    <div><b>Rating:</b> {{ item.rating }}</div>
-                    {% endif %} {% if item.notes %}
-                    <div class="mt-2">{{ item.notes }}</div>
-                    {% endif %}
+                {% if item.status %}
+                <div class="mt-2"><b>Estado:</b> {{ labels_status.get(item.status, item.status) }}</div>
+                {% endif %}
+
+                {% if item.rating is not none %}
+                <div class="mt-2"><b>Rating:</b> {{ item.rating }}</div>
+                {% endif %}
+
+                {% if item.notes %}
+                <div class="mt-2">{{ item.notes }}</div>
+                {% endif %}
+
+                {% if item.start_date %}
+                <div class="mt-2"><b>Inicio:</b> {{ item.start_date.strftime('%d/%m/%Y') }}</div>
+                {% endif %}
+
+                {% if item.end_date %}
+                <div class="mt-2"><b>Fin:</b> {{ item.end_date.strftime('%d/%m/%Y') }}</div>
+                {% endif %}
 
 
 
