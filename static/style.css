@@ -1,3 +1,116 @@
+:root {
+  --app-bg: #f7f3ff;
+  --app-surface: #ffffff;
+  --app-border: #e8dff8;
+  --app-card-shadow: 0 10px 26px rgba(74, 32, 124, 0.08);
+  --app-primary: #641cabb6;
+  --app-primary-strong: #69458d;
+}
+
+body.app-shell {
+  background: linear-gradient(180deg, #fbf9ff 0%, var(--app-bg) 55%, #f5f0ff 100%);
+  min-height: 100vh;
+  color: #2f2440;
+}
+
+.app-navbar {
+  background: linear-gradient(90deg, #6f4a95 0%, #8a63af 100%);
+  box-shadow: 0 6px 20px rgba(74, 32, 124, 0.22);
+}
+
+.app-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+
+.app-footer {
+  border-top: 1px solid var(--app-border);
+}
+
+.hero-panel {
+  border: 1px solid var(--app-border);
+  border-radius: 1rem;
+  box-shadow: var(--app-card-shadow);
+  background: var(--app-surface);
+}
+
+.feature-card {
+  border: 1px solid var(--app-border);
+  border-radius: 1rem;
+  box-shadow: var(--app-card-shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  background: var(--app-surface);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(74, 32, 124, 0.14);
+}
+
+.feature-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.7rem;
+  display: grid;
+  place-items: center;
+  background: #f1e9fb;
+  color: var(--app-primary-strong);
+}
+
+.soft-chip {
+  background: #f3edfb;
+  color: #5f4380;
+  border: 1px solid #e5d8f8;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.module-card {
+  border: 1px solid var(--app-border);
+  border-radius: 1rem;
+  background: var(--app-surface);
+  box-shadow: var(--app-card-shadow);
+}
+
+.btn-primary {
+  background-color: var(--app-primary);
+  border-color: var(--app-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--app-primary-strong);
+  border-color: var(--app-primary-strong);
+}
+
+/* Dark mode */
+[data-bs-theme="dark"] body.app-shell {
+  background: linear-gradient(180deg, #181224 0%, #1f1630 50%, #241a39 100%);
+  color: #ece6f8;
+}
+
+[data-bs-theme="dark"] .hero-panel,
+[data-bs-theme="dark"] .feature-card,
+[data-bs-theme="dark"] .module-card {
+  background: #2a1f3f;
+  border-color: #4f3b72;
+}
+
+[data-bs-theme="dark"] .soft-chip {
+  background: #3d2d5b;
+  border-color: #5a4386;
+  color: #e7dcf8;
+}
+
+[data-bs-theme="dark"] .app-footer {
+  border-top-color: #4f3b72;
+}
+
+[data-bs-theme="dark"] .text-muted {
+  color: #c7bbdf !important;
+}
+
 /* Heatmap hábitos */
 #heatmapGrid {
   gap: 4px;

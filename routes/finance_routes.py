@@ -174,7 +174,7 @@ def categories_new():
         db.session.commit()
 
         flash("Categoría creada.", "success")
-        return redirect(url_for("finance.categories.index"))
+        return redirect(url_for("finance.categories_index"))
 
     return render_template("finance/categories/new.html", form=form)
 
@@ -206,9 +206,9 @@ def categories_delete(category_id):
     in_use = Transaction.query.filter_by(user_id=user_id, category_id=category.id).first()
     if in_use:
         flash("No puedes borrar esta categoría porque ya tiene transacciones.", "warning")
-        return redirect(url_for("finance.categories.index"))
+        return redirect(url_for("finance.categories_index"))
 
     db.session.delete(category)
     db.session.commit()
     flash("Categoría eliminada.", "success")
-    return redirect(url_for("finance.categories.index"))
+    return redirect(url_for("finance.categories_index"))

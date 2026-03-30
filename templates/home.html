@@ -1,56 +1,65 @@
 {% extends 'base.html' %}
 {% block title %}Inicio | Project Multitarea{% endblock %}
 
-  {% block content %}
-  
-<section class="py-2 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Project Multitarea</h1>
-        <p class="lead text-muted">Aplicación multiuso</p>
-        <p>
-          {% if session.get('user_id') %} 
-          <p class="text">¡Has iniciado sesión! puedes usar la página con tranquilidad</p>
-          {% else %}
-          <a href="{{ url_for('auth.login') }}" class="btn btn-primary my-2">Inicia sesión</a>
-          <a href="{{ url_for('auth.register') }}" class="btn btn-secondary my-2">Registrate</a>
-          {% endif %}
-        </p>
+{% block content %}
+
+<section class="container py-4 py-lg-5">
+  <div class="hero-panel p-4 p-lg-5">
+    <div class="row align-items-center g-3">
+      <div class="col-lg-8">
+        <h1 class="h2 fw-semibold mb-2">Bienvenido a Project Multitarea</h1>
+        <p class="text-muted mb-3">Tu espacio para llevar hábitos, contenido que consumes y tus finanzas personales sin complicarte.</p>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="soft-chip">Hábitos</span>
+          <span class="soft-chip">Media tracker</span>
+          <span class="soft-chip">Control de gastos</span>
+        </div>
+        {% if session.get('user_id') %}
+          <p class="mb-0"><i class="bi bi-check2-circle text-success me-2"></i>Ya estás dentro, dale al módulo que quieras y sigue avanzando.</p>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="btn btn-primary me-2">Inicia sesión</a>
+          <a href="{{ url_for('auth.register') }}" class="btn btn-outline-secondary">Regístrate</a>
+        {% endif %}
       </div>
+      <div class="col-lg-4 ms-lg-auto">
+        <div class="module-card p-3">
+          <h2 class="h6 mb-3">Dato curioso</h2>
+          <p class="small text-muted mb-0">En 1911 la Mona Lisa fue robada del Louvre; al principio sospecharon de Pablo Picasso y Guillaume Apollinaire, quien fue encarcelado, lo que dañó la relación con Picasso; el museo cerró y la obra se convirtió en atracción mediática hasta que se descubrió que el ladrón fue Vincenzo Peruggia, un ex empleado que dijo querer devolverla a Italia y fue condenado.</p>
+        </div>
     </div>
 </section>
 
 <div class="container my-3">
   <div class="row justify-content-center g-4">
     <div class="col-12 col-md-6 col-lg-4">
-      <div class="card h-100">
+      <div class="feature-card card h-100">
         <div class="card-body">
           <h5 class="card-title">Dashboard de hábitos/tiempo</h5>
           <p class="card-text">Guardas sesiones: “estudio”, “juego”, “trabajo”, “scroll”. <br>
              Estadísticas por semana, rachas, gráficos simples, exportar CSV.</p>
-          <a href="{{ url_for('habit.index') }}" class="btn btn-primary">Ir a algún lugar</a>
+          <a href="{{ url_for('habit.index') }}" class="btn btn-primary">Ir a al módulo</a>
         </div>
       </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-      <div class="card h-100">
+      <div class="feature-card card h-100">
         <div class="card-body">
           <h5 class="card-title">Gestor de biblioteca/media</h5>
           <p class="card-text">Listas: “viendo”, “pendiente”, “completado”, rating, tags. <br>
             Diferentes filtros y posibilidades.</p>
-          <a href="{{ url_for('media.index') }}" class="btn btn-primary">Ir a algún lugar</a>
+          <a href="{{ url_for('media.index') }}" class="btn btn-primary">Ir a al módulo</a>
         </div>
       </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-      <div class="card h-100">
+      <div class="feature-card card h-100">
         <div class="card-body">
           <h5 class="card-title">Analizador de gastos/finanzas personales</h5>
           <p class="card-text">Ingresas gastos por categoría, fecha, método, notas. <br>
             Reportes: top categorías, promedio semanal, “dónde se te va la plata”.</p>
-          <a href="{{ url_for('finance.dashboard') }}" class="btn btn-primary">Ir a algún lugar</a>
+          <a href="{{ url_for('finance.dashboard') }}" class="btn btn-primary">Ir a al módulo</a>
         </div>
       </div>
     </div>

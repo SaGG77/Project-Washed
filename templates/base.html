@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light    ">
 
 <head>
     <meta charset="UTF-8">
@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <!-- CSRF -->
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="app-shell">
 
     <div class="position-fixed top-0 end-0 p-3" style="z-index: 1080; margin-top: 70px;">
         {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
@@ -24,7 +26,7 @@
     </div>
 
     <header>
-        <nav class="navbar navbar-bg-primary navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark app-navbar">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url_for('home') }}">
                     <i class="bi bi-emoji-wink"></i> Project Multitarea
@@ -35,12 +37,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link {% if request.endpoint and request.method.startswith('media') %}active fw-bold{% endif %}" href="{{ url_for('media.index') }}">
+                            <a class="nav-link {% if request.endpoint and request.endpoint.startswith('media.') %}active fw-bold{% endif %}" href="{{ url_for('media.index') }}">
                                 <i class="bi bi-film"></i> Peliculas y series vistas
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.endpoint and request.endpoint.startswith('habits.') %}active fw-bold{% endif %}" aria-current="page" href="{{ url_for('habit.index') }}">
+                            <a class="nav-link {% if request.endpoint and request.endpoint.startswith('habit.') %}active fw-bold{% endif %}" aria-current="page" href="{{ url_for('habit.habits') }}">
+                            
                                 <i class="bi bi-hourglass-split"></i> Tiempos y hábitos
                             </a>
                         </li>
@@ -73,22 +76,27 @@
                         </li>
                         {% endif %}
                     </ul>
+                    <div class="d-flex align-items-center ms-lg-2">
+                        <button id="themeToggle" class="btn btn-sm btn-outline-light" type="button" aria-label="Cambiar tema">
+                            <i class="bi bi-moon-stars"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main>
+    <main class="pb-4">
         {% block content %} {% endblock %}
     </main>
 
     {% block footer %}
-    <footer class="text-muted py-5">
+    <footer class="text-muted py-5 app-footer">
         <div class="container">
             <p class="float-end mb-1">
                 <a href="#">Volver arriba</a>
             </p>
-            <p class="mb-1">¿Te encanto la página y quieres apoyarme? (Haré de cuenta que dijsite que si)</p>
+            <p class="mb-1">¿Te encantó la página y quieres apoyarme? (Haré de cuenta que dijsite que si)</p>
             <p class="mb-0"> Entonces podrías <a href="https://www.bing.com/images/search?q=gatos%20peque%C3%B1os&qs=n&form=QBIR&sp=-1&lq=0&pq=gatos%20peque%C3%B1o&sc=10-13&cvid=3DD7742545B343F38F1DDF56CAC0C192&first=1" , target="_blank">regalarme una gaseosa</a></p>
         </div>
     </footer>
@@ -98,5 +106,6 @@
     <!-- Script SweetAlert y archivo JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ url_for('static', filename='js/delete.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 </body>
 </html>
